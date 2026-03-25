@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+@theme {
+  --color-celeste: #a2c0e2;
+  --color-crema: #fdffea;
+  --color-chocolate: #4b260c;
+  --color-manteca: #f5e188;
+  
+  --font-jakarta: "Plus Jakarta Sans", sans-serif;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-crema);
+    color: var(--color-chocolate);
+    font-family: var(--font-jakarta);
+    text-transform: lowercase;
+  }
+}
