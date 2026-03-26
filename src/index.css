@@ -17,3 +17,14 @@
     text-transform: lowercase;
   }
 }
+
+@layer utilities {
+  @keyframes slow-zoom {
+    0% { transform: scale(1.05); }
+    50% { transform: scale(1.25); }
+    100% { transform: scale(1.05); }
+  }
+  .animate-slow-zoom {
+    animation: slow-zoom 40s ease-in-out infinite;
+  }
+}

@@ -1,80 +1,99 @@
-import { useState } from 'react'
-import ProductCard from './pages/ProductCard'
+import { useEffect, useRef } from 'react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import Lenis from 'lenis'
+
 import Navbar from './components/Navbar'
+import Hero from './components/Hero'
+import Nosotros from './components/Nosotros'
+import Productos from './components/Productos'
+import Contacto from './components/Contacto'
+
+gsap.registerPlugin(ScrollTrigger)
 
 function App() {
+  const horizontalWrapRef = useRef(null)
+  const horizontalContainerRef = useRef(null)
+
+  useEffect(() => {
+    // Lenis Setup
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      direction: 'vertical',
+      gestureDirection: 'vertical',
+      smooth: true,
+      mouseMultiplier: 1,
+      smoothTouch: false,
+    })
+
+    lenis.on('scroll', ScrollTrigger.update)
+
+    gsap.ticker.add((time) => {
+      lenis.raf(time * 1000)
+    })
+    
+    gsap.ticker.lagSmoothing(0)
+
+    // GSAP y ScrollTrigger con Context de GSAP (la forma oficial para React para evitar duplicados y desfasajes de DOM)
+    let ctx = gsap.context(() => {
+      const sections = gsap.utils.toArray(horizontalContainerRef.current.children);
+      
+      gsap.to(horizontalContainerRef.current, {
+        // Enlaza la cantidad de secciones por el 100% dividido el ancho total. Matemáticamente perfecto pase lo que pase.
+        xPercent: -100 * (sections.length - 1) / sections.length,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: horizontalWrapRef.current,
+          pin: true,
+          scrub: true,
+          // La distancia de scroll = Cantidad de pantallas ocultas * el ancho visible
+          end: () => '+=' + (window.innerWidth * (sections.length - 1)),
+          invalidateOnRefresh: true,
+        }
+      });
+    });
+
+    return () => {
+      lenis.destroy();
+      ctx.revert(); // Mata rigurosamente todas las animaciones y triggers de GSAP
+    };
+  }, [])
+
   return (
     <>
       <Navbar />
-
-      <main className="w-full relative">
-        
-        {/* HERO - Crema */}
-        <section 
-          id="hero" 
-          className="min-h-screen flex flex-col items-center justify-center p-6 bg-crema text-chocolate selection:bg-celeste selection:text-chocolate relative"
-        >
-          {/* Decorative blobs */}
-          <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
-            <div className="absolute top-[10%] left-[10%] w-[50%] h-[50%] bg-manteca/40 rounded-full blur-[80px]"></div>
-          </div>
-          <div className="relative z-10 text-center space-y-4 pt-24 text-chocolate">
-            <h1 className="text-6xl md:text-8xl font-black font-jakarta tracking-tight drop-shadow-sm">
-              horneando dulzura
-            </h1>
-            <p className="text-xl md:text-3xl font-medium max-w-2xl mx-auto leading-relaxed opacity-80">
-              todos los días.
-            </p>
-          </div>
-        </section>
-
-        {/* NOSOTROS - Celeste */}
-        <section 
-          id="nosotros" 
-          className="min-h-screen flex flex-col items-center justify-center p-6 bg-celeste text-chocolate"
-        >
-          <div className="max-w-4xl text-center space-y-6">
-            <h2 className="text-5xl md:text-7xl font-black tracking-tight">nuestra historia.</h2>
-            <p className="text-xl md:text-2xl font-medium opacity-80 leading-relaxed max-w-2xl mx-auto">
-              somos una pareja apasionada por la pastelería. desde nuestra cocina familiar,
-              traemos los sabores más dulces para acompañar tus mejores momentos.
-            </p>
-          </div>
-        </section>
-
-        {/* PRODUCTOS - Chocolate */}
-        <section 
-          id="productos" 
-          className="min-h-screen flex flex-col items-center justify-center p-6 bg-chocolate text-crema"
-        >
-          <div className="max-w-4xl w-full text-center space-y-12">
-            <h2 className="text-5xl md:text-7xl font-black tracking-tight">nuestros clásicos.</h2>
-            <div className="flex justify-center">
-              <ProductCard />
+      
+      <main className="w-full relative overflow-x-hidden">
+        {/* Contenedor que será bloqueado (pin) en pantalla mientras se scrollea horizontalmente */}
+        <div ref={horizontalWrapRef} className="w-full h-screen overflow-hidden">
+          
+          {/* Fila súper ancha que contiene Hero, Nosotros y Productos */}
+          <div 
+            ref={horizontalContainerRef} 
+            className="flex flex-nowrap w-[300vw] h-screen will-change-transform"
+          >
+            <div className="w-screen h-screen flex-shrink-0">
+              <Hero />
+            </div>
+            
+            <div className="w-screen h-screen flex-shrink-0">
+              <Nosotros />
+            </div>
+            
+            <div className="w-screen h-screen flex-shrink-0">
+              <Productos />
             </div>
           </div>
-        </section>
+          
+        </div>
 
-        {/* CONTACTO - Manteca */}
-        <section 
-          id="contacto" 
-          className="min-h-screen flex flex-col items-center justify-center p-6 bg-manteca text-chocolate"
-        >
-          <div className="max-w-4xl text-center space-y-6">
-            <h2 className="text-5xl md:text-7xl font-black tracking-tight">hacé tu pedido.</h2>
-            <p className="text-xl md:text-3xl font-medium opacity-80 leading-relaxed max-w-2xl mx-auto pb-10">
-              escribinos y armamos la torta perfecta para tu próximo festejo.
-            </p>
-            <a href="mailto:hola@dctortas.com" className="bg-chocolate text-crema px-10 py-5 rounded-full text-2xl font-bold hover:bg-opacity-90 transition-all font-jakarta">
-              enviar mensaje
-            </a>
-          </div>
-        </section>
-
+        {/* Contacto sigue fluyendo verticalmente normal después del contenedor horizontal */}
+        <Contacto />
       </main>
-
+      
       {/* FOOTER - Crema */}
-      <footer className="w-full bg-crema text-chocolate py-12 text-center border-t border-chocolate/10 pb-20">
+      <footer className="w-full bg-crema text-chocolate py-12 text-center border-t border-chocolate/10 pb-20 relative z-10">
         <div className="max-w-4xl mx-auto space-y-4">
           <p className="font-bold text-2xl font-jakarta">dc tortas.</p>
           <p className="opacity-70">Hecho con ♥ para los amantes de lo dulce.</p>
