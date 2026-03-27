@@ -73,15 +73,15 @@ function App() {
             ref={horizontalContainerRef} 
             className="flex flex-nowrap w-[300vw] h-screen will-change-transform"
           >
-            <div className="w-screen h-screen flex-shrink-0">
+            <div className="w-screen h-screen shrink-0">
               <Hero />
             </div>
             
-            <div className="w-screen h-screen flex-shrink-0">
+            <div className="w-screen h-screen shrink-0">
               <Nosotros />
             </div>
             
-            <div className="w-screen h-screen flex-shrink-0">
+            <div className="w-screen h-screen shrink-0">
               <Productos />
             </div>
           </div>

@@ -8,7 +8,7 @@ const Navbar = () => {
       <div className="flex items-center justify-between px-6 py-3 md:px-8 md:py-4 bg-white rounded-full pointer-events-auto transition-transform duration-500 hover:scale-[1.01]">
         
         {/* Logo a la izquierda - Black para que sea un 'recorte' (Knockout) */}
-        <a href="/" className="flex-shrink-0 hover:opacity-80 transition-opacity">
+        <a href="/" className="shrink-0 hover:opacity-80 transition-opacity">
           <img 
             src={logoChocolate} 
             alt="DC Tortas Logo" 
