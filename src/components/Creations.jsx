@@ -25,54 +25,93 @@ export default function Creations() {
     const gallery = galleryRef.current
     if (!gallery) return
 
-    // --- Wheel → smooth horizontal scroll ---
+    const maxScroll = () => gallery.scrollWidth - gallery.clientWidth
+
+    // --- Wheel → smooth horizontal scroll via quickTo ---
+    // quickTo reuses a single tween — no re-instantiation on every event,
+    // which gives a cleaner, more continuous feel.
+    const quickScroll = gsap.quickTo(gallery, 'scrollLeft', {
+      duration: 1.05,
+      ease: 'expo.out',
+    })
+
+    // Accumulate a target so rapid wheel events don't fight each other
+    let wheelTarget = gallery.scrollLeft
+
     const handleWheel = (e) => {
+      // Prefer horizontal delta when present (trackpad two-finger swipe),
+      // fall back to vertical for mouse wheels.
+      const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY
+      const atStart = gallery.scrollLeft <= 0
+      const atEnd   = gallery.scrollLeft >= maxScroll() - 1
+
+      // If the gallery cannot consume this scroll (already at the boundary in
+      // that direction), let the event bubble up to Lenis / the page.
+      const wouldScrollLeft  = delta < 0
+      const wouldScrollRight = delta > 0
+      if ((wouldScrollLeft && atStart) || (wouldScrollRight && atEnd)) return
+
+      // Gallery can scroll — claim the event.
       e.preventDefault()
       e.stopPropagation()
-      const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY
-      gsap.to(gallery, {
-        scrollLeft: gallery.scrollLeft + delta * 1.3,
-        duration: 0.5,
-        ease: 'power2.out',
-        overwrite: 'auto',
-      })
+
+      wheelTarget = Math.max(0, Math.min(wheelTarget + delta * 0.85, maxScroll()))
+      quickScroll(wheelTarget)
     }
 
-    // --- Drag to scroll with momentum ---
+    // --- Drag / swipe with time-based velocity ---
     let isDragging = false
     let startX = 0
     let startScrollLeft = 0
-    let prevX = 0
-    let velocity = 0
+    let lastX = 0
+    let lastTime = 0
+    let velocity = 0  // px / ms
 
     const onPointerDown = (e) => {
       if (e.button !== 0) return
       isDragging = true
       startX = e.clientX
-      prevX = e.clientX
+      lastX = e.clientX
+      lastTime = performance.now()
       startScrollLeft = gallery.scrollLeft
       velocity = 0
       gallery.setPointerCapture(e.pointerId)
       gallery.style.cursor = 'grabbing'
       gsap.killTweensOf(gallery)
+      // Sync the wheel target so there's no jump if wheel was active
+      wheelTarget = gallery.scrollLeft
     }
 
     const onPointerMove = (e) => {
       if (!isDragging) return
-      velocity = e.clientX - prevX
-      prevX = e.clientX
+      const now = performance.now()
+      const dt = now - lastTime
+      if (dt > 0) {
+        // Exponential smoothing over time — stable even at high framerates
+        const raw = (e.clientX - lastX) / dt
+        velocity = velocity * 0.75 + raw * 0.25
+      }
+      lastX = e.clientX
+      lastTime = now
       gallery.scrollLeft = startScrollLeft - (e.clientX - startX)
+      wheelTarget = gallery.scrollLeft
     }
 
     const onPointerUp = () => {
       if (!isDragging) return
       isDragging = false
       gallery.style.cursor = 'grab'
-      if (Math.abs(velocity) > 3) {
+      // Convert px/ms velocity → throw distance.
+      // Negative because scrollLeft moves opposite to drag direction.
+      // Factor 320ms gives a natural-feeling coast without overshot.
+      const throwDist = -velocity * 320
+      if (Math.abs(throwDist) > 15) {
+        const target = Math.max(0, Math.min(gallery.scrollLeft + throwDist, maxScroll()))
+        wheelTarget = target
         gsap.to(gallery, {
-          scrollLeft: gallery.scrollLeft + (-velocity * 9),
-          duration: 0.9,
-          ease: 'power3.out',
+          scrollLeft: target,
+          duration: 1.6,
+          ease: 'power4.out',
           overwrite: 'auto',
         })
       }
