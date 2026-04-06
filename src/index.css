@@ -5,7 +5,7 @@
   --color-crema: #fdffea;
   --color-chocolate: #4b260c;
   --color-manteca: #f5e188;
-  
+
   --font-jakarta: "Plus Jakarta Sans", sans-serif;
 }
 
@@ -14,17 +14,37 @@
     background-color: var(--color-crema);
     color: var(--color-chocolate);
     font-family: var(--font-jakarta);
-    text-transform: lowercase;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
   }
 }
 
 @layer utilities {
-  @keyframes slow-zoom {
-    0% { transform: scale(1.05); }
-    50% { transform: scale(1.25); }
-    100% { transform: scale(1.05); }
+  .no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
-  .animate-slow-zoom {
-    animation: slow-zoom 40s ease-in-out infinite;
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  @keyframes scroll-pulse {
+    0%, 100% {
+      opacity: 0.5;
+      transform: scaleY(1);
+    }
+    50% {
+      opacity: 0.15;
+      transform: scaleY(0.4);
+    }
+  }
+
+  .animate-scroll-pulse {
+    animation: scroll-pulse 2.2s ease-in-out infinite;
+    transform-origin: top center;
   }
 }

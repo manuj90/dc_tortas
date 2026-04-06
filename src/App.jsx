@@ -1,106 +1,142 @@
-import { useEffect, useRef } from 'react'
+import { useEffect } from 'react'
+import Lenis from 'lenis'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import Lenis from 'lenis'
 
-import Navbar from './components/Navbar'
-import Hero from './components/Hero'
-import Nosotros from './components/Nosotros'
-import Productos from './components/Productos'
-import Contacto from './components/Contacto'
+import FloatingUI from './components/FloatingUI'
+import Opening from './components/Opening'
+import Atmosphere from './components/Atmosphere'
+import Highlight from './components/Highlight'
+import Process from './components/Process'
+import Creations from './components/Creations'
+import Closing from './components/Closing'
 
 gsap.registerPlugin(ScrollTrigger)
 
-function App() {
-  const horizontalWrapRef = useRef(null)
-  const horizontalContainerRef = useRef(null)
-
+export default function App() {
   useEffect(() => {
-    // Lenis Setup
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: 1.4,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      direction: 'vertical',
-      gestureDirection: 'vertical',
-      smooth: true,
-      mouseMultiplier: 1,
       smoothTouch: false,
     })
 
-    lenis.on('scroll', ScrollTrigger.update)
+    window.__lenis = lenis
 
-    gsap.ticker.add((time) => {
-      lenis.raf(time * 1000)
-    })
-    
+    lenis.on('scroll', ScrollTrigger.update)
+    gsap.ticker.add((time) => lenis.raf(time * 1000))
     gsap.ticker.lagSmoothing(0)
 
-    // GSAP y ScrollTrigger con Context de GSAP (la forma oficial para React para evitar duplicados y desfasajes de DOM)
-    let ctx = gsap.context(() => {
-      const sections = gsap.utils.toArray(horizontalContainerRef.current.children);
-      
-      gsap.to(horizontalContainerRef.current, {
-        // Enlaza la cantidad de secciones por el 100% dividido el ancho total. Matemáticamente perfecto pase lo que pase.
-        xPercent: -100 * (sections.length - 1) / sections.length,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: horizontalWrapRef.current,
-          pin: true,
-          scrub: true,
-          // La distancia de scroll = Cantidad de pantallas ocultas * el ancho visible
-          end: () => '+=' + (window.innerWidth * (sections.length - 1)),
-          invalidateOnRefresh: true,
-        }
-      });
-    });
+    const ctx = gsap.context(() => {
+      // Fade + lift reveals
+      gsap.utils.toArray('.reveal').forEach((el) => {
+        gsap.from(el, {
+          opacity: 0,
+          y: 50,
+          duration: 1.1,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 90%',
+            toggleActions: 'play none none none',
+          },
+        })
+      })
+
+      // Staggered children reveals
+      gsap.utils.toArray('.reveal-stagger').forEach((el) => {
+        gsap.from(el.children, {
+          opacity: 0,
+          y: 35,
+          duration: 0.9,
+          stagger: 0.12,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 85%',
+            toggleActions: 'play none none none',
+          },
+        })
+      })
+
+      // Image / media reveals
+      gsap.utils.toArray('.reveal-img').forEach((el) => {
+        gsap.from(el, {
+          opacity: 0,
+          scale: 0.97,
+          duration: 1.6,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 85%',
+            toggleActions: 'play none none none',
+          },
+        })
+      })
+
+      // Decorative line grow
+      gsap.utils.toArray('.reveal-line').forEach((el) => {
+        gsap.from(el, {
+          scaleX: 0,
+          duration: 1.4,
+          ease: 'power3.inOut',
+          transformOrigin: 'left center',
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 90%',
+            toggleActions: 'play none none none',
+          },
+        })
+      })
+
+      // Opening video parallax
+      const video = document.querySelector('[data-parallax-video]')
+      const opening = document.querySelector('[data-opening]')
+      if (video && opening) {
+        gsap.to(video, {
+          y: '22vh',
+          ease: 'none',
+          scrollTrigger: {
+            trigger: opening,
+            start: 'top top',
+            end: 'bottom top',
+            scrub: true,
+          },
+        })
+      }
+
+      // Opening content entrance (on load, no scrollTrigger)
+      const openingContent = document.querySelector('[data-opening-content]')
+      if (openingContent) {
+        gsap.from(openingContent.children, {
+          opacity: 0,
+          y: 40,
+          duration: 1.3,
+          stagger: 0.18,
+          delay: 0.5,
+          ease: 'power3.out',
+        })
+      }
+    })
+
+    document.fonts.ready.then(() => ScrollTrigger.refresh())
 
     return () => {
-      lenis.destroy();
-      ctx.revert(); // Mata rigurosamente todas las animaciones y triggers de GSAP
-    };
+      lenis.destroy()
+      ctx.revert()
+      delete window.__lenis
+    }
   }, [])
 
   return (
-    <>
-      <Navbar />
-      
-      <main className="w-full relative overflow-x-hidden">
-        {/* Contenedor que será bloqueado (pin) en pantalla mientras se scrollea horizontalmente */}
-        <div ref={horizontalWrapRef} className="w-full h-screen overflow-hidden">
-          
-          {/* Fila súper ancha que contiene Hero, Nosotros y Productos */}
-          <div 
-            ref={horizontalContainerRef} 
-            className="flex flex-nowrap w-[300vw] h-screen will-change-transform"
-          >
-            <div className="w-screen h-screen shrink-0">
-              <Hero />
-            </div>
-            
-            <div className="w-screen h-screen shrink-0">
-              <Nosotros />
-            </div>
-            
-            <div className="w-screen h-screen shrink-0">
-              <Productos />
-            </div>
-          </div>
-          
-        </div>
-
-        {/* Contacto sigue fluyendo verticalmente normal después del contenedor horizontal */}
-        <Contacto />
-      </main>
-      
-      {/* FOOTER - Crema */}
-      <footer className="w-full bg-crema text-chocolate py-12 text-center border-t border-chocolate/10 pb-20 relative z-10">
-        <div className="max-w-4xl mx-auto space-y-4">
-          <p className="font-bold text-2xl font-jakarta">dc tortas.</p>
-          <p className="opacity-70">Hecho con ♥ para los amantes de lo dulce.</p>
-        </div>
-      </footer>
-    </>
+    <div className="bg-crema font-jakarta overflow-x-hidden">
+      <FloatingUI />
+      <Opening />
+      <Atmosphere />
+      <Highlight />
+      <Process />
+      <Creations />
+      <Closing />
+    </div>
   )
 }
-
-export default App
