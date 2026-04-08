@@ -27,7 +27,7 @@ export default function Opening() {
 
       {/* Layered overlays */}
       <div className="absolute inset-0 bg-chocolate/40" />
-      <div className="absolute inset-0 bg-gradient-to-t from-chocolate/75 via-chocolate/15 to-transparent" />
+      <div className="absolute inset-0 bg-linear-to-t from-chocolate/75 via-chocolate/15 to-transparent" />
 
       {/* Content — bottom aligned, left margin */}
       <div

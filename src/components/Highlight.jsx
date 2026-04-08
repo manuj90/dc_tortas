@@ -17,7 +17,7 @@ export default function Highlight() {
             <source src={cutVideoMp4} type="video/mp4" />
           </video>
           <div className="absolute inset-0 bg-chocolate/20" />
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent to-crema/10 hidden md:block" />
+          <div className="absolute inset-0 bg-linear-to-r from-transparent to-crema/10 hidden md:block" />
           <div className="absolute bottom-6 left-6 md:hidden">
             <span className="text-crema/70 text-xs tracking-widest uppercase">
               torta de temporada

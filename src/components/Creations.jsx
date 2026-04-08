@@ -4,9 +4,9 @@ import gsap from 'gsap'
 // Shared tile — fills whatever container it's placed in
 const Tile = ({ name, note, bg, gradient }) => (
   <div className={`relative w-full h-full overflow-hidden group ${bg}`}>
-    <div className={`absolute inset-0 bg-gradient-to-br ${gradient} to-transparent`} />
-    <div className="absolute inset-0 bg-gradient-to-b from-transparent to-chocolate/10 group-hover:to-chocolate/20 transition-colors duration-600" />
-    <div className="absolute inset-[10px] border border-chocolate/[0.055]" />
+    <div className={`absolute inset-0 bg-linear-to-br ${gradient} to-transparent`} />
+    <div className="absolute inset-0 bg-linear-to-b from-transparent to-chocolate/10 group-hover:to-chocolate/20 transition-colors duration-600" />
+    <div className="absolute inset-[10px] border border-chocolate/5.5" />
     <div className="absolute inset-0 flex items-end p-4 md:p-5">
       <div>
         <h4 className="text-chocolate font-bold text-[13px] md:text-sm leading-snug mb-0.5">

@@ -4,7 +4,7 @@ export default function Closing() {
   return (
     <section id="pedido" className="bg-chocolate py-28 md:py-40 px-6 md:px-16 relative overflow-hidden">
       {/* Subtle ambient glow */}
-      <div className="absolute top-0 right-0 w-1/2 h-full opacity-[0.04] bg-gradient-to-l from-celeste to-transparent pointer-events-none" />
+      <div className="absolute top-0 right-0 w-1/2 h-full opacity-[0.04] bg-linear-to-l from-celeste to-transparent pointer-events-none" />
 
       <div className="max-w-[1400px] mx-auto relative z-10">
 
