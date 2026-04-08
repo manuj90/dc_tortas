@@ -19,7 +19,7 @@ export default function Highlight() {
           <div className="absolute inset-0 bg-chocolate/20" />
           <div className="absolute inset-0 bg-gradient-to-r from-transparent to-crema/10 hidden md:block" />
           <div className="absolute bottom-6 left-6 md:hidden">
-            <span className="text-crema/40 text-[9px] tracking-widest uppercase">
+            <span className="text-crema/70 text-xs tracking-widest uppercase">
               torta de temporada
             </span>
           </div>
@@ -27,7 +27,7 @@ export default function Highlight() {
 
         {/* Text — right */}
         <div className="flex flex-col justify-center px-8 py-16 md:px-14 md:py-20 bg-crema">
-          <span className="text-celeste text-[10px] tracking-[0.35em] uppercase mb-6 block reveal">
+          <span className="text-[#4B260C] text-xs tracking-[0.35em] uppercase mb-6 block reveal">
             nuestra especialidad
           </span>
 
@@ -37,7 +37,7 @@ export default function Highlight() {
             <em className="not-italic text-celeste">y chocolate blanco.</em>
           </h3>
 
-          <p className="text-chocolate/55 text-sm leading-relaxed max-w-[260px] mb-10 reveal">
+          <p className="text-chocolate/85 text-sm leading-relaxed max-w-[260px] mb-10 reveal">
             una combinación que nació de la curiosidad. bizcochuelo esponjoso,
             cremoso de frambuesa, ganache de chocolate blanco y flores frescas.
           </p>
@@ -50,7 +50,7 @@ export default function Highlight() {
                 const el = document.getElementById('pedido')
                 if (el) window.__lenis?.scrollTo(el, { duration: 2 })
               }}
-              className="inline-flex items-center gap-4 text-chocolate text-[10px] font-bold tracking-[0.3em] uppercase group"
+              className="inline-flex items-center gap-4 text-chocolate text-sm font-bold tracking-[0.3em] uppercase group"
             >
               <span>encargala</span>
               <span className="block h-px bg-chocolate w-8 group-hover:w-16 transition-all duration-500 ease-in-out" />

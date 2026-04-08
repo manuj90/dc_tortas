@@ -22,7 +22,7 @@ export default function Closing() {
             <br />
             en mente?
           </h2>
-          <p className="text-crema/45 text-sm md:text-base leading-relaxed max-w-xs md:max-w-sm reveal">
+          <p className="text-crema/90 text-sm md:text-base leading-relaxed max-w-xs md:max-w-sm reveal">
             contanos qué necesitás y creamos juntos la torta perfecta para ese momento especial.
           </p>
         </div>
@@ -33,13 +33,12 @@ export default function Closing() {
             href="https://wa.me/5491100000000"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block bg-manteca text-chocolate text-[10px] font-bold tracking-[0.3em] uppercase px-9 py-5 hover:bg-crema transition-colors duration-300 text-center"
+            className="inline-block bg-manteca text-chocolate text-sm font-bold tracking-[0.3em] uppercase px-9 py-5 hover:bg-crema transition-colors duration-300 text-center"
           >
             hacer un pedido
           </a>
           <a
-            href="mailto:hola@dctortas.com"
-            className="inline-block border border-crema/20 text-crema text-[10px] font-bold tracking-[0.3em] uppercase px-9 py-5 hover:border-crema/50 transition-colors duration-300 text-center"
+            className="inline-block border border-crema/20 text-crema text-sm font-bold tracking-[0.3em] uppercase px-9 py-5 hover:border-crema/50 transition-colors duration-300 text-center"
           >
             escribinos
           </a>
@@ -47,7 +46,7 @@ export default function Closing() {
 
         {/* Footer */}
         <div className="border-t border-crema/8 pt-7">
-          <div className="flex flex-col sm:flex-row sm:justify-between gap-3 text-crema/25 text-[9px] tracking-[0.3em] uppercase">
+          <div className="flex flex-col sm:flex-row sm:justify-between gap-3 text-crema/70 text-xs tracking-[0.3em] uppercase">
             <span>buenos aires, argentina</span>
             <span>@dctortas</span>
             <span>© 2025 dc tortas</span>

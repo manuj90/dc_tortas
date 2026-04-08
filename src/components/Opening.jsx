@@ -26,7 +26,7 @@ export default function Opening() {
       </div>
 
       {/* Layered overlays */}
-      <div className="absolute inset-0 bg-chocolate/20" />
+      <div className="absolute inset-0 bg-chocolate/40" />
       <div className="absolute inset-0 bg-gradient-to-t from-chocolate/75 via-chocolate/15 to-transparent" />
 
       {/* Content — bottom aligned, left margin */}
@@ -38,9 +38,9 @@ export default function Opening() {
           <img
             src={logoCrema}
             alt="dc tortas"
-            className="h-6 w-auto object-contain object-left opacity-55"
+            className="h-6 w-auto object-contain object-left opacity-90"
           />
-          <span className="text-crema/45 text-[9px] tracking-[0.4em] uppercase">
+          <span className="text-crema/80 text-xs font-semibold tracking-[0.4em] uppercase drop-shadow-md">
             repostería artesanal
           </span>
         </div>
@@ -65,11 +65,11 @@ export default function Opening() {
               const el = document.getElementById('pedido')
               if (el) window.__lenis?.scrollTo(el, { duration: 2 })
             }}
-            className="inline-block bg-manteca text-chocolate text-[10px] font-bold tracking-[0.3em] uppercase px-7 py-4 hover:bg-crema transition-colors duration-300"
+            className="inline-block bg-manteca text-chocolate text-sm font-bold tracking-[0.3em] uppercase px-7 py-4 hover:bg-crema transition-colors duration-300"
           >
             hacé tu pedido
           </a>
-          <span className="text-crema/35 text-[10px] tracking-[0.25em] uppercase hidden sm:block">
+          <span className="text-crema/70 text-xs tracking-[0.25em] uppercase hidden sm:block">
             o seguí explorando ↓
           </span>
         </div>

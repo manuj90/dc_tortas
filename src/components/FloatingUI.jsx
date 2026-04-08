@@ -238,7 +238,7 @@ export default function FloatingUI() {
           ref={menuFooterRef}
           className="px-8 md:px-16 pb-10 md:pb-14 border-t border-crema/10 pt-6"
         >
-          <p className="text-crema/25 text-[9px] tracking-[0.35em] uppercase">
+          <p className="text-crema/70 text-xs tracking-[0.35em] uppercase">
             buenos aires · repostería artesanal
           </p>
         </div>

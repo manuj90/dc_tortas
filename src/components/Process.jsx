@@ -17,7 +17,7 @@ export default function Process() {
 
         {/* Header */}
         <div className="mb-20 md:mb-28 max-w-2xl">
-          <span className="text-celeste text-[10px] tracking-[0.35em] uppercase mb-8 block reveal">
+          <span className="text-celeste text-xs tracking-[0.35em] uppercase mb-8 block reveal">
             el proceso
           </span>
           <h2 className="text-crema font-black leading-[0.92] text-[clamp(2.5rem,7vw,5.5rem)] reveal">
@@ -30,11 +30,11 @@ export default function Process() {
         {/* Pillars */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-12 reveal-stagger">
           {pillars.map(({ icon, label, description }) => (
-            <div key={label} className="flex flex-col gap-5">
+            <div key={label} className="flex flex-col items-center text-center gap-5">
               <img src={icon} alt={label} className="w-20 h-20" />
               <div>
                 <p className="text-crema text-xs font-bold tracking-widest uppercase mb-2">{label}</p>
-                <p className="text-crema/40 text-xs leading-relaxed">{description}</p>
+                <p className="text-crema/90 text-xs leading-relaxed">{description}</p>
               </div>
             </div>
           ))}

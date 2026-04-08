@@ -12,7 +12,7 @@ const Tile = ({ name, note, bg, gradient }) => (
         <h4 className="text-chocolate font-bold text-[13px] md:text-sm leading-snug mb-0.5">
           {name}
         </h4>
-        <p className="text-chocolate/40 text-[9px] tracking-wide">{note}</p>
+        <p className="text-chocolate/85 text-xs tracking-wide">{note}</p>
       </div>
     </div>
   </div>
@@ -139,7 +139,7 @@ export default function Creations() {
       {/* Header */}
       <div className="px-6 md:px-16 mb-9 md:mb-11 flex items-end justify-between">
         <div>
-          <span className="text-celeste text-[10px] tracking-[0.35em] uppercase mb-5 block reveal">
+          <span className="text-[#4B260C] text-xs tracking-[0.35em] uppercase mb-5 block reveal">
             más creaciones
           </span>
           <h2 className="text-chocolate font-black leading-[0.92] text-[clamp(2.2rem,6vw,4.5rem)] reveal">
@@ -148,8 +148,8 @@ export default function Creations() {
             <em className="not-italic text-celeste">ser recordadas.</em>
           </h2>
         </div>
-        <span className="hidden md:block text-chocolate/25 text-[10px] tracking-[0.3em] uppercase pb-1 reveal">
-          deslizá →
+        <span className="hidden md:block text-chocolate/70 text-xs tracking-[0.3em] uppercase pb-1 reveal">
+            deslizá →
         </span>
       </div>
 
@@ -247,7 +247,7 @@ export default function Creations() {
       {/* Footer note */}
       <div className="px-6 md:px-16 mt-9 md:mt-11">
         <div className="h-px bg-chocolate/10 reveal-line" />
-        <p className="mt-5 text-chocolate/30 text-[10px] tracking-[0.3em] uppercase reveal">
+        <p className="mt-5 text-chocolate/70 text-xs tracking-[0.3em] uppercase reveal">
           el menú varía según la temporada · consultanos por más sabores
         </p>
       </div>

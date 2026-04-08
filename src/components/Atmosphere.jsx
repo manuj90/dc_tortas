@@ -9,7 +9,7 @@ export default function Atmosphere() {
 
           {/* Text */}
           <div>
-            <span className="text-celeste text-[10px] tracking-[0.35em] uppercase mb-8 block reveal">
+            <span className="text-[#4B260C] text-xs tracking-[0.35em] uppercase mb-8 block reveal">
               nuestra historia
             </span>
 
@@ -34,7 +34,7 @@ export default function Atmosphere() {
 
             <div className="mt-12">
               <div className="h-px bg-chocolate/15 reveal-line" />
-              <p className="mt-5 text-chocolate/30 text-[10px] tracking-[0.35em] uppercase reveal">
+              <p className="mt-5 text-chocolate/70 text-xs tracking-[0.35em] uppercase reveal">
                 desde 2018 · buenos aires
               </p>
             </div>
@@ -46,11 +46,11 @@ export default function Atmosphere() {
               className="relative overflow-hidden bg-manteca/25"
               style={{ aspectRatio: '3/4' }}
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-manteca/30 via-transparent to-celeste/15" />
+              <div className="absolute inset-0 bg-linear-to-br from-manteca/30 via-transparent to-celeste/15" />
               {/* Subtle inner frame */}
               <div className="absolute inset-3 border border-chocolate/6" />
               <div className="absolute inset-0 flex items-end p-6">
-                <span className="text-chocolate/20 text-[9px] tracking-widest uppercase">
+                <span className="text-chocolate/70 text-xs tracking-widest uppercase">
                   fotografía · próximamente
                 </span>
               </div>
