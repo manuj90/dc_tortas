@@ -1,4 +1,5 @@
 import cutVideoMp4 from '../assets/video/cut.mp4'
+import cutVideoWebm from '../assets/video/cut.webm'
 
 export default function Highlight() {
   return (
@@ -14,6 +15,7 @@ export default function Highlight() {
             playsInline
             className="absolute inset-0 w-full h-full object-cover"
           >
+            <source src={cutVideoWebm} type="video/webm" />
             <source src={cutVideoMp4} type="video/mp4" />
           </video>
           <div className="absolute inset-0 bg-chocolate/20" />
@@ -32,14 +34,14 @@ export default function Highlight() {
           </span>
 
           <h3 className="text-chocolate font-black leading-[0.92] mb-8 text-[clamp(1.8rem,4vw,3.5rem)] reveal">
-            torta de frambuesa
+            torta
             <br />
-            <em className="not-italic text-celeste">y chocolate blanco.</em>
+            <em className="not-italic text-celeste">napoleón.</em>
           </h3>
 
           <p className="text-chocolate/85 text-sm leading-relaxed max-w-[260px] mb-10 reveal">
-            una combinación que nació de la curiosidad. bizcochuelo esponjoso,
-            cremoso de frambuesa, ganache de chocolate blanco y flores frescas.
+            un clásico inolvidable. finas capas de masa de hojaldre crujiente,
+            intercaladas con una suave crema pastelera a la vainilla.
           </p>
 
           <div className="reveal">

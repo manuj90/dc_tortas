@@ -1,18 +1,61 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 
+import frambuesaRosasAvif from '../assets/images/frambuesaRosas.avif'
+import frambuesaRosasWebp from '../assets/images/frambuesaRosas.webp'
+import frambuesaRosasJpg from '../assets/images/frambuesaRosas.jpg'
+import frambuesaRosasPng from '../assets/images/frambuesaRosas.png'
+
+import maracuyaAvif from '../assets/images/maracuya.avif'
+import maracuyaWebp from '../assets/images/maracuya.webp'
+import maracuyaJpg from '../assets/images/maracuya.jpg'
+import maracuyaPng from '../assets/images/maracuya.png'
+
+import brownieAvif from '../assets/images/brownie.avif'
+import brownieWebp from '../assets/images/brownie.webp'
+import brownieJpg from '../assets/images/brownie.jpg'
+import browniePng from '../assets/images/brownie.png'
+
+import lavandaAvif from '../assets/images/lavanda.avif'
+import lavandaWebp from '../assets/images/lavanda.webp'
+import lavandaJpg from '../assets/images/lavanda.jpg'
+import lavandaPng from '../assets/images/lavanda.png'
+
+import redvelvetAvif from '../assets/images/redvelvet.avif'
+import redvelvetWebp from '../assets/images/redvelvet.webp'
+import redvelvetJpg from '../assets/images/redvelvet.jpg'
+import redvelvetPng from '../assets/images/redvelvet.png'
+
+import pistachoAvif from '../assets/images/Pistacho.avif'
+import pistachoWebp from '../assets/images/Pistacho.webp'
+import pistachoJpg from '../assets/images/Pistacho.jpg'
+import pistachoPng from '../assets/images/Pistacho.png'
+
+import vanillaAvif from '../assets/images/vanilla.avif'
+import vanillaWebp from '../assets/images/vanilla.webp'
+import vanillaJpg from '../assets/images/vanilla.jpg'
+import vanillaPng from '../assets/images/vanilla.png'
+
 // Shared tile — fills whatever container it's placed in
-const Tile = ({ name, note, bg, gradient }) => (
+const Tile = ({ name, note, bg, gradient, images }) => (
   <div className={`relative w-full h-full overflow-hidden group ${bg}`}>
-    <div className={`absolute inset-0 bg-linear-to-br ${gradient} to-transparent`} />
-    <div className="absolute inset-0 bg-linear-to-b from-transparent to-chocolate/10 group-hover:to-chocolate/20 transition-colors duration-600" />
-    <div className="absolute inset-[10px] border border-chocolate/5.5" />
-    <div className="absolute inset-0 flex items-end p-4 md:p-5">
+    {images && (
+      <picture className="absolute inset-0 w-full h-full">
+        <source srcSet={images.avif} type="image/avif" />
+        <source srcSet={images.webp} type="image/webp" />
+        <source srcSet={images.jpg} type="image/jpeg" />
+        <img src={images.png} alt={name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+      </picture>
+    )}
+    <div className={`absolute inset-0 bg-linear-to-br ${gradient} to-transparent z-10 mix-blend-multiply opacity-50`} />
+    <div className="absolute inset-0 bg-linear-to-b from-transparent via-transparent to-chocolate/80 group-hover:to-chocolate/90 transition-colors duration-600 z-10" />
+    <div className="absolute inset-[10px] border border-crema/30 z-20 pointer-events-none" />
+    <div className="absolute inset-0 flex items-end p-4 md:p-5 z-20 pointer-events-none">
       <div>
-        <h4 className="text-chocolate font-bold text-[13px] md:text-sm leading-snug mb-0.5">
+        <h4 className="text-crema font-bold text-[13px] md:text-sm leading-snug mb-0.5 drop-shadow-md">
           {name}
         </h4>
-        <p className="text-chocolate/85 text-xs tracking-wide">{note}</p>
+        <p className="text-crema/90 text-xs tracking-wide drop-shadow-md">{note}</p>
       </div>
     </div>
   </div>
@@ -178,6 +221,7 @@ export default function Creations() {
               note="perfumada, delicada, especial."
               bg="bg-manteca/35"
               gradient="from-manteca/25"
+              images={{ avif: frambuesaRosasAvif, webp: frambuesaRosasWebp, jpg: frambuesaRosasJpg, png: frambuesaRosasPng }}
             />
           </div>
 
@@ -189,6 +233,7 @@ export default function Creations() {
                 note="tropical, cremosa."
                 bg="bg-celeste/20"
                 gradient="from-celeste/14"
+                images={{ avif: maracuyaAvif, webp: maracuyaWebp, jpg: maracuyaJpg, png: maracuyaPng }}
               />
             </div>
             <div className="flex-1 min-h-0">
@@ -197,6 +242,7 @@ export default function Creations() {
                 note="intenso y húmedo."
                 bg="bg-chocolate/10"
                 gradient="from-chocolate/6"
+                images={{ avif: brownieAvif, webp: brownieWebp, jpg: brownieJpg, png: browniePng }}
               />
             </div>
           </div>
@@ -208,6 +254,7 @@ export default function Creations() {
               note="fresca, floral, memorable."
               bg="bg-manteca/22"
               gradient="from-manteca/14"
+              images={{ avif: lavandaAvif, webp: lavandaWebp, jpg: lavandaJpg, png: lavandaPng }}
             />
           </div>
 
@@ -219,6 +266,7 @@ export default function Creations() {
                 note="un clásico reinventado."
                 bg="bg-manteca/18"
                 gradient="from-manteca/10"
+                images={{ avif: redvelvetAvif, webp: redvelvetWebp, jpg: redvelvetJpg, png: redvelvetPng }}
               />
             </div>
             <div className="flex-1 min-h-0">
@@ -227,6 +275,7 @@ export default function Creations() {
                 note="sutil y sofisticada."
                 bg="bg-celeste/17"
                 gradient="from-celeste/10"
+                images={{ avif: pistachoAvif, webp: pistachoWebp, jpg: pistachoJpg, png: pistachoPng }}
               />
             </div>
           </div>
@@ -238,6 +287,7 @@ export default function Creations() {
               note="liviana, aérea, perfecta."
               bg="bg-manteca/28"
               gradient="from-manteca/18"
+              images={{ avif: vanillaAvif, webp: vanillaWebp, jpg: vanillaJpg, png: vanillaPng }}
             />
           </div>
 
