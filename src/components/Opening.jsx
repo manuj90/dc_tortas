@@ -1,6 +1,10 @@
 import cakeVideoWebm from '../assets/video/cake.webm'
 import cakeVideoMp4 from '../assets/video/cake.mp4'
 import logoCrema from '../assets/logo/logo_crema.svg'
+import openingAvif from '../assets/images/opening.avif'
+import openingWebp from '../assets/images/opening.webp'
+import openingJpg from '../assets/images/opening.jpg'
+import openingPng from '../assets/images/opening.png'
 
 export default function Opening() {
   return (
@@ -10,14 +14,22 @@ export default function Opening() {
       style={{ height: '100dvh', minHeight: '100vh' }}
     >
       {/* Video — oversized to allow parallax without gaps */}
-      <div className="absolute inset-0 overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden bg-manteca/25">
+        <picture className="absolute left-0 w-full object-cover" style={{ top: '-20%', height: '140%' }}>
+          <source srcSet={openingAvif} type="image/avif" />
+          <source srcSet={openingWebp} type="image/webp" />
+          <source srcSet={openingJpg} type="image/jpeg" />
+          <img src={openingPng} alt="DC Tortas Opening" className="w-full h-full object-cover" />
+        </picture>
         <video
           data-parallax-video
           autoPlay
           muted
           loop
           playsInline
-          className="absolute left-0 w-full object-cover"
+          disablePictureInPicture
+          disableRemotePlayback
+          className="absolute left-0 w-full object-cover pointer-events-none"
           style={{ top: '-20%', height: '140%' }}
         >
           <source src={cakeVideoWebm} type="video/webm" />

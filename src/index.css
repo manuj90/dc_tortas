@@ -32,6 +32,17 @@
     display: none;
   }
 
+  /* Hide Safari video controls on background videos */
+  video::-webkit-media-controls {
+    display: none !important;
+  }
+  video::-webkit-media-controls-enclosure {
+    display: none !important;
+  }
+  video::-webkit-media-controls-panel {
+    display: none !important;
+  }
+
   @keyframes scroll-pulse {
     0%, 100% {
       opacity: 0.5;

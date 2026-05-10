@@ -1,5 +1,9 @@
 import cutVideoMp4 from '../assets/video/cut.mp4'
 import cutVideoWebm from '../assets/video/cut.webm'
+import highlightAvif from '../assets/images/highlight.avif'
+import highlightWebp from '../assets/images/highlight.webp'
+import highlightJpg from '../assets/images/highlight.jpg'
+import highlightPng from '../assets/images/highlight.png'
 
 export default function Highlight() {
   return (
@@ -7,13 +11,21 @@ export default function Highlight() {
       <div className="grid grid-cols-1 md:grid-cols-[1.15fr_1fr]" style={{ minHeight: '90vh' }}>
 
         {/* Video / image — left, edge-to-edge */}
-        <div className="relative overflow-hidden reveal-img" style={{ minHeight: '55vw', maxHeight: '90vh' }}>
+        <div className="relative overflow-hidden reveal-img bg-manteca/25" style={{ minHeight: '55vw', maxHeight: '90vh' }}>
+          <picture className="absolute inset-0 w-full h-full">
+            <source srcSet={highlightAvif} type="image/avif" />
+            <source srcSet={highlightWebp} type="image/webp" />
+            <source srcSet={highlightJpg} type="image/jpeg" />
+            <img src={highlightPng} alt="Torta Napoleón" className="w-full h-full object-cover" />
+          </picture>
           <video
             autoPlay
             muted
             loop
             playsInline
-            className="absolute inset-0 w-full h-full object-cover"
+            disablePictureInPicture
+            disableRemotePlayback
+            className="absolute inset-0 w-full h-full object-cover pointer-events-none"
           >
             <source src={cutVideoWebm} type="video/webm" />
             <source src={cutVideoMp4} type="video/mp4" />

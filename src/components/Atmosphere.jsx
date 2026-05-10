@@ -1,3 +1,8 @@
+import introAvif from '../assets/images/intro.avif'
+import introWebp from '../assets/images/intro.webp'
+import introJpg from '../assets/images/intro.jpg'
+import introPng from '../assets/images/intro.png'
+
 export default function Atmosphere() {
   return (
     <section
@@ -40,20 +45,25 @@ export default function Atmosphere() {
             </div>
           </div>
 
-          {/* Image placeholder */}
+          {/* Image */}
           <div className="reveal-img">
             <div
-              className="relative overflow-hidden bg-manteca/25"
+              className="relative overflow-hidden bg-manteca/25 group"
               style={{ aspectRatio: '3/4' }}
             >
-              <div className="absolute inset-0 bg-linear-to-br from-manteca/30 via-transparent to-celeste/15" />
+              <picture className="absolute inset-0 w-full h-full">
+                <source srcSet={introAvif} type="image/avif" />
+                <source srcSet={introWebp} type="image/webp" />
+                <source srcSet={introJpg} type="image/jpeg" />
+                <img
+                  src={introPng}
+                  alt="Nuestra historia"
+                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                />
+              </picture>
+              <div className="absolute inset-0 bg-linear-to-br from-transparent to-chocolate/20 pointer-events-none mix-blend-multiply opacity-50" />
               {/* Subtle inner frame */}
-              <div className="absolute inset-3 border border-chocolate/6" />
-              <div className="absolute inset-0 flex items-end p-6">
-                <span className="text-chocolate/70 text-xs tracking-widest uppercase">
-                  fotografía · próximamente
-                </span>
-              </div>
+              <div className="absolute inset-[10px] border border-crema/30 z-10 pointer-events-none" />
             </div>
           </div>
 
